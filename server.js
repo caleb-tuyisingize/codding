@@ -7,7 +7,7 @@ app.get("/all", (req, res) => {
   res.json(data);
 });
 
-app.post("/all", (req, res) => {
+app.post("/insert", (req, res) => {
   const { name, age, type } = req.body;
   const id = data.length - 1;
   const autoId = data[id];
