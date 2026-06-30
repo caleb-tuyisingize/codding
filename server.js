@@ -48,7 +48,7 @@ app.put("/update/:id", (req, res) => {
   }
 });
 
-app.delete("/remove-data/:id", (req, res) => {
+app.delete("/delete/:id", (req, res) => {
   const id = Number(req.params.id);
   const initialLength = data.length;
   const deletedData = data.filter((user) => user.id !== id);
