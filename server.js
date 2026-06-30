@@ -25,7 +25,7 @@ app.post("/insert", (req, res) => {
   }
 });
 
-app.put("/change-data/:id", (req, res) => {
+app.put("/update/:id", (req, res) => {
   const id = Number(req.params.id);
   const { name, age, type } = req.body;
   const updatedData = { name, age, type };
