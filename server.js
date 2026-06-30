@@ -3,11 +3,11 @@ import express from "express";
 import data from "./files/data.json" with { type: "json" };
 const app = express();
 app.use(express.json());
-app.get("/all-data", (req, res) => {
+app.get("/all", (req, res) => {
   res.json(data);
 });
 
-app.post("/update", (req, res) => {
+app.post("/all", (req, res) => {
   const { name, age, type } = req.body;
   const id = data.length - 1;
   const autoId = data[id];
