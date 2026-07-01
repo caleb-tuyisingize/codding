@@ -11,9 +11,9 @@ app.get("/all", (req, res) => {
 
 app.post("/insert", (req, res) => {
   const { name, age, type } = req.body;
-  const id = data.length - 1;
-  const autoId = data[id];
-  const userData = { id: autoId.id + 1, name, age, type };
+  const maxId = Math.max(...data.map(user => user.id), 0);
+  const autoId = maxId + 1;
+  const userData = { id: autoId, name, age, type };
   data.push(userData);
   try {
     fs.writeFile("./files/data.json", JSON.stringify(data), (err) => {
@@ -34,8 +34,8 @@ app.put("/update/:id", (req, res) => {
   const newDataUpdated = data.find((a) => a.id === id);
 
   if (!newDataUpdated) {
-    res.status(404).send("ID not found");
-  }
+  return res.status(404).send("ID not found");
+}
 
   newDataUpdated.name = name;
   newDataUpdated.age = age;
