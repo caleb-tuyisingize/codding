@@ -1,8 +1,10 @@
 import fs from "fs";
 import express from "express";
-import data from "./files/data.json" with { type: "json" };
 const app = express();
 app.use(express.json());
+const content = await fs.promises.readFile("./files/data.json", "utf8");
+
+const data = JSON.parse(content);
 app.get("/all", (req, res) => {
   res.json(data);
 });
