@@ -9,64 +9,56 @@ app.get("/all", (req, res) => {
   res.json(data);
 });
 
-app.post("/insert", (req, res) => {
+app.post("/insert", async (req, res) => {
   const { name, age, type } = req.body;
-  const maxId = Math.max(...data.map(user => user.id), 0);
+  const maxId = Math.max(...data.map((user) => user.id), 0);
   const autoId = maxId + 1;
   const userData = { id: autoId, name, age, type };
   data.push(userData);
-  try {
-    fs.writeFile("./files/data.json", JSON.stringify(data), (err) => {
-      if (err) {
-        res.status(404).json({ message: "Failed to write file" });
-      }
-    });
-    res.status(200).send(userData);
-  } catch (error) {
-    res.status(500).json({ message: "Server error occured" });
-  }
+  await fs.promises.writeFile("./files/data.json", JSON.stringify(data));
+
+  res.status(200).send(userData);
 });
 
-app.put("/update/:id", (req, res) => {
+app.put("/update/:id", async (req, res) => {
   const id = Number(req.params.id);
   const { name, age, type } = req.body;
-  const updatedData = { name, age, type };
-  const newDataUpdated = data.find((a) => a.id === id);
+  if (typeof age !== "number")
+    return res.status(400).json({ message: "Age must be a number" });
 
-  if (!newDataUpdated) {
-  return res.status(404).send("ID not found");
-}
-
-  newDataUpdated.name = name;
-  newDataUpdated.age = age;
-  newDataUpdated.type = type;
-  try {
-    fs.writeFile("./files/data.json", JSON.stringify(data), (err) => {
-      res.status(404).json({ message: "Failed to update" });
+  if (!name || !age || !type) {
+    return res.status(400).json({
+      message: "All fields required",
     });
+  } else {
+    const updatedData = { name, age, type };
+
+    const newDataUpdated = data.find((a) => a.id === id);
+
+    if (!newDataUpdated) {
+      return res.status(404).send("ID not found");
+    }
+    const index = data.findIndex((user) => user.id === id);
+    data[index] = {
+      ...data[index],
+      name,
+      age,
+      type,
+    };
+    await fs.promises.writeFile("./files/data.json", JSON.stringify(data));
     res.send(updatedData);
-  } catch (error) {
-    res.status(500).json({ message: "Server error occured" });
   }
 });
 
-app.delete("/delete/:id", (req, res) => {
+app.delete("/delete/:id", async (req, res) => {
   const id = Number(req.params.id);
   const initialLength = data.length;
   const deletedData = data.filter((user) => user.id !== id);
   if (initialLength === deletedData.length) {
     res.status(404).json({ message: "user with this id not found" });
   }
-  try {
-    fs.writeFile("./files/data.json", JSON.stringify(deletedData), (error) => {
-      if (error) {
-        res.status(401).json({ message: "Bad request" });
-      }
-    });
-    res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error occured" });
-  }
+  await fs.promises.writeFile("./files/data.json", JSON.stringify(deletedData));
+  res.status(200).json({ message: "User deleted successfully" });
 });
 
 app.listen(3000);
