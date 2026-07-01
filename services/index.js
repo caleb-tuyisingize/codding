@@ -1,5 +1,18 @@
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const filePath = path.join(__dirname, "./files/data.json");
+
+const content = await fs.promises.readFile(
+  "./files/data.json",
+  "utf8"
+);
+
+const data = JSON.parse(content);
 export const allData = (req, res) => {
   res.json(data);
 };
@@ -52,6 +65,9 @@ export const deleteData = async (req, res) => {
   if (initialLength === deletedData.length) {
     res.status(404).json({ message: "user with this id not found" });
   }
-  await fs.promises.writeFile("./files/data.json", JSON.stringify(deletedData));
+  await fs.promises.writeFile(
+    "./files/data.json",
+    JSON.stringify(deletedData),
+  );
   res.status(200).json({ message: "User deleted successfully" });
 };
