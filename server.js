@@ -1,17 +1,11 @@
 import fs from "fs";
 import express from "express";
+import router from "./controllers/index.js";
 const app = express();
 app.use(express.json());
-const content = await fs.promises.readFile("./files/data.json", "utf8");
 
-const data = JSON.parse(content);
-app.get("/all");
+app.use('/', router)
 
-app.post("/insert");
-
-app.put("/update/:id");
-
-app.delete("/delete/:id");
 
 app.listen(3000);
 console.log("Server is running....");
