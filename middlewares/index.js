@@ -1,21 +1,30 @@
 export const incomingsMiddleware = (req, res, next) => {
   const { name, age, type } = req.body;
   if (!name) {
-    return res.json({ message: "fields name is require" });
-  }else if (!age) {
-    return res.json({ message: "fields age is require" });
-  }else if (!type) {
-    return res.json({ message: "fields type is require" });
-  }else{
+    return res.status(400).json({
+      message: "Name is required.",
+    });
+  }
 
-      next();
-    }
+  if (!age) {
+    return res.status(400).json({
+      message: "Age is required.",
+    });
+  }
+
+  if (!type) {
+    return res.status(400).json({
+      message: "Type is required.",
+    });
+  }
+
+  next();
 };
 
 export const idChecking = (req, res, next) => {
   const id = req.params.id;
-  if (id===null || typeof id=== string) {
-    return res.json({ message: "Please enter a propper ID" });
+  if (typeof id === "string") {
+    return res.status(400).json({ message: "Please enter a propper ID" });
   }
   next();
 };
