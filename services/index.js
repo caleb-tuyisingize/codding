@@ -9,19 +9,11 @@ const filePath = path.join(__dirname, "./files/data.json");
 
 const content = await fs.promises.readFile("./files/data.json", "utf8");
 
-const express = express();
+const app = express();
 const data = JSON.parse(content);
 export const allData = (req, res) => {
   res.json(data);
 };
-
-express.use((req, res, next) => {
-  const { name, age, type } = req.body;
-  if (!name || !age || !type) {
-    return res.json({ message: "Filed is require" });
-  }
-  next()
-});
 
 export const insertData = async (req, res) => {
   const { name, age, type } = req.body;
