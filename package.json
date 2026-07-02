@@ -1,5 +1,6 @@
 {
   "name": "codding",
+  "type": "module",
   "version": "1.0.0",
   "description": "```bash\r 1: GET/ http://localhost:3000/all\r 2: POST/ http://localhost:3000/insert\r 3: PUT/ http://localhost:3000/update/id\r 4: DELETE/ http://localhost:3000/delete/id\r ```",
   "main": "index.js",
@@ -20,6 +21,9 @@
     "express": "^5.2.1"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6"
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
   }
 }
