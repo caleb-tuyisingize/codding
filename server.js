@@ -4,8 +4,6 @@ import router from "./controllers/index.js";
 import { idChecking, incomingsMiddleware } from "./middlewares/index.js";
 const app = express();
 app.use(express.json());
-app.use(incomingsMiddleware)
-app.use(idChecking)
 app.use("/", router);
 
 app.listen(3000);
