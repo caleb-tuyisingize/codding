@@ -6,3 +6,9 @@
 3: PUT/ http://localhost:3000/update/id
 4: DELETE/ http://localhost:3000/delete/id
 ```
+
+## RUN
+
+```bash
+RUN: npm run dev
+```
