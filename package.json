@@ -5,7 +5,7 @@
   "description": "```bash\r 1: GET/ http://localhost:3000/all\r 2: POST/ http://localhost:3000/insert\r 3: PUT/ http://localhost:3000/update/id\r 4: DELETE/ http://localhost:3000/delete/id\r ```",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec \"node --loader ts-node/esm\" server.ts"
   },
   "repository": {
     "type": "git",
