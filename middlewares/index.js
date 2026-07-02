@@ -22,9 +22,25 @@ export const incomingsMiddleware = (req, res, next) => {
 };
 
 export const idChecking = (req, res, next) => {
-  const id = req.params.id;
-  if (typeof id === "string") {
-    return res.status(400).json({ message: "Please enter a propper ID" });
+  const id = Number(req.params.id);
+
+  if (isNaN(id)) {
+    return res.status(400).json({
+      message: "Please enter a valid numeric ID.",
+    });
+  }
+  if (id <= 0) {
+    return res.status(400).json({
+      message: "ID must be a greater than 0.",
+    });
+  }
+
+  const user = data.find((user) => user.id === id);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found.",
+    });
   }
   next();
 };
