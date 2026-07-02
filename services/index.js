@@ -29,31 +29,19 @@ export const insertData = async (req, res) => {
 export const updateData = async (req, res) => {
   const id = Number(req.params.id);
   const { name, age, type } = req.body;
-  if (typeof age !== "number")
-    return res.status(400).json({ message: "Age must be a number" });
+  const updatedData = { name, age, type };
 
-  if (!name || !age || !type) {
-    return res.status(400).json({
-      message: "All fields required",
-    });
-  } else {
-    const updatedData = { name, age, type };
+  const newDataUpdated = data.find((a) => a.id === id);
 
-    const newDataUpdated = data.find((a) => a.id === id);
-
-    if (!newDataUpdated) {
-      return res.status(404).send("ID not found");
-    }
-    const index = data.findIndex((user) => user.id === id);
-    data[index] = {
-      ...data[index],
-      name,
-      age,
-      type,
-    };
-    await fs.promises.writeFile("./files/data.json", JSON.stringify(data));
-    res.send(updatedData);
-  }
+  const index = data.findIndex((user) => user.id === id);
+  data[index] = {
+    ...data[index],
+    name,
+    age,
+    type,
+  };
+  await fs.promises.writeFile("./files/data.json", JSON.stringify(data));
+  res.send(updatedData);
 };
 
 export const deleteData = async (req, res) => {
