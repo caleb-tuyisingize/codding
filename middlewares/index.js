@@ -1,3 +1,8 @@
+import fs from "fs";
+
+const originalData = await fs.promises.readFile("./files/data.json", "utf8");
+
+const data = JSON.parse(originalData);
 export const incomingsMiddleware = (req, res, next) => {
   const { name, age, type } = req.body;
   if (!name) {
