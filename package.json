@@ -1,17 +1,29 @@
 {
   "name": "codding",
+  "type": "module",
   "version": "1.0.0",
+  "description": "```bash\r 1: GET/ http://localhost:3000/all\r 2: POST/ http://localhost:3000/insert\r 3: PUT/ http://localhost:3000/update/id\r 4: DELETE/ http://localhost:3000/delete/id\r ```",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec \"node --loader ts-node/esm\" server.ts"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caleb-tuyisingize/codding.git"
+  },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "bugs": {
+    "url": "https://github.com/caleb-tuyisingize/codding/issues"
+  },
+  "homepage": "https://github.com/caleb-tuyisingize/codding#readme",
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "nodemon": "^3.1.14"
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
   }
 }
